@@ -1,0 +1,196 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[hidelinks]{hyperref}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage{appendix}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{calc}
+
+%used for colored code-snippets, color-scheme can be set in Makefile
+$if(highlighting-macros)$
+$highlighting-macros$
+$endif$
+
+% let paragraph be unnumbered section 4 headings
+\usepackage{titlesec}
+\titleformat{\paragraph}[display]
+{\bfseries\filright}
+{}{}{}
+\titlespacing{\paragraph}
+{0ex}{*2}{0ex}
+
+\titleformat{\subparagraph}[runin]
+{\bfseries\filright}
+{}{}{}
+\titlespacing{\subparagraph}
+{0ex}{*2}{1ex}
+
+% caption numbers are created in crossref filter
+\usepackage{caption}
+\captionsetup{labelformat=empty}
+
+
+\usepackage{csquotes}
+\usepackage{float}
+\usepackage{longtable}
+\usepackage{authblk}
+\usepackage{setspace}
+\usepackage[hang]{footmisc}
+
+\setlength{\marginparwidth}{2cm}
+\usepackage[textwidth=3.5cm, tickmarkheight=0.2cm, textsize=footnotesize]{todonotes}
+\floatplacement{figure}{$if(float-placement-figure)$$float-placement-figure$$else$H$endif$}
+
+\usepackage[
+left=2cm,
+right=4cm,
+top=3cm,
+bottom=2cm
+%marginparwidth=125pt,
+%marginparsep=5mm,
+]{geometry}
+
+\input{rsc/templates/page}
+
+% satisfy pandoc's tightlist command
+\def\tightlist{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+$if(csl-refs)$
+\newlength{\cslhangindent}
+\newlength{\cslparskip}
+
+% Set References Layout here:
+\setlength{\cslhangindent}{1em}
+\setlength{\cslparskip}{1em}
+
+\input{rsc/templates/csl-style}
+$endif$ 
+
+%Minimum fraction for a Float-Only Page (Standard .6)
+\renewcommand{\floatpagefraction}{.3}
+\renewcommand{\textfraction}{.4}
+
+% space between footnote number and text
+\setlength{\footnotemargin}{2mm}
+%space between footnotes and text body
+\addtolength{\footnotesep}{2mm}
+
+\clubpenalty10000
+\widowpenalty10000
+\displaywidowpenalty=10000
+% penalty for footnotes on multiple pages
+\interfootnotelinepenalty=1000
+
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+
+\MSonehalfspacing
+
+
+$if(title)$
+\title{$title$}
+$endif$
+
+ % if multiple authors are named
+$if(authors)$
+    \usepackage{authblk}
+    %if multiple authors have institutes
+    $if(institutes)$ 
+        $for(authors)$
+            $if(authors.institute)$
+                \author[%
+                    $for(authors.institute)$%
+                        $authors.institute$$sep$,%
+                    $endfor$%
+                    ]{$authors.name$%
+                    $if(authors.correspondence)$%
+                        $if(authors.email)$%
+                            \textsuperscript{*\,}%
+                        $endif$%
+                    $endif$%
+                }
+            $else$
+                
+            $endif$
+        $endfor$
+        $for(institutes)$
+            \affil[$institutes.index$]{$institutes.name$}
+        $endfor$
+    $else$
+        $for(authors)$
+        \author{$authors.name$%
+        $if(authors.correspondence)$%
+            $if(authors.email)$%
+                \textsuperscript{*\,}%
+            $endif$%
+        $endif$%
+        }
+        $endfor$
+        \affil{}
+    $endif$
+
+$endif$
+\date{$date$}
+
+\makeatletter
+\def\@maketitle{%
+    \newpage \null \vskip 2em
+    \begin {center}%
+    {\LARGE \@title \par}%
+    \vskip 1.5em%
+    $if(authors)$
+    {\large \lineskip .5em%
+        \begin {tabular}[t]{c}%
+        \@author
+        \end {tabular}\par}%
+    $endif$
+    $if(correspondence)$
+    $if(multi_correspondence)$
+        \vskip 0.2em{\textsuperscript{*}\,Corresponding authors:\\
+        $for(authors)$$if(authors.correspondence)$$if(authors.email)$
+        $authors.name$: \href{mailto:$authors.email$}{$authors.email$}\\
+        $endif$$endif$$endfor$}%
+    $else$
+        \vskip 0.2em{\textsuperscript{*}\,Corresponding author:
+        $for(authors)$$if(authors.correspondence)$$if(authors.email)$
+        $authors.name$ <\href{mailto:$authors.email$}{$authors.email$}>
+        $endif$$endif$$endfor$}%
+    $endif$
+    $endif$
+    \vskip 1em{\large \@date}%
+    \end {center}%
+    \par
+    \vskip 1.5em}
+\makeatother
+
+\begin{document}
+
+$if(titlepage)$
+\newgeometry{margin=2.5cm}
+\maketitle
+$if(abstract)$
+\begin{abstract}
+$abstract$
+\end{abstract}
+$endif$
+\thispagestyle{empty}
+\restoregeometry
+\newpage
+$endif$
+
+$if(toc)$
+\newpage
+\tableofcontents
+\newpage
+$endif$
+
+$body$
+
+
+\end{document}
