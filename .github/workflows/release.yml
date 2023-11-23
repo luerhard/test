@@ -1,0 +1,19 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '*.*.*'
+
+jobs:
+  release:
+  name: Release
+  runs-on: ubuntu-latest
+  steps:
+    - name: Create Release
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: "main.md"
+        token: ${{ secrets.GITHUB_TOKEN }}
+        draft: false
+        prerelease: steps.check-version.outputs.prerelease == 'true'
