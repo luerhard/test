@@ -23,7 +23,7 @@ institutes:
 
 date: \today
 
-abstract: 'This is a template this is designed to make it as easy as possible to create scientific publications in social science journals. To use this, just create a new repo from this template, clear the example text from main.md and appendix.md, and start writing. The current content of this document explains all functionalities.'
+abstract: 'This is a  template this is designed to make it as easy as possible to create scientific publications in social science journals. To use this, just create a new repo from this template, clear the example text from main.md and appendix.md, and start writing. The current content of this document explains all functionalities.'
 
 keywords: 'Key, Words'
 
