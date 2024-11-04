@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "devenv-test"
+version = "0.1.0"
+description = ""
+authors = ["Lukas Erhard <luerhard@googlemail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pandas = "^2.2.3"
+ibis-framework = {extras = ["duckdb"], version = "^9.5.0"}
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

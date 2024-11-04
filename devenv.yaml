@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=https://devenv.sh/devenv.schema.json
+inputs:
+  nixpkgs:
+    url: github:nixOS/nixpkgs/2d2a9ddbe3f2c00747398f3dc9b05f7f2ebb0f53
+
+# If you're using non-OSS software, you can set allowUnfree to true.
+allowUnfree: true
+
+# If you're willing to use a package that's vulnerable
+# permittedInsecurePackages:
+#  - "openssl-1.1.1w"
+
+# If you have more than one devenv you can merge them
+#imports:
+# - ./backend
