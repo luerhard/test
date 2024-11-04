@@ -1,12 +1,21 @@
-{ pkgs, lib, config, inputs, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  inputs,
+  ...
+}:
 
 {
-  packages = [ 
+  packages = [
     pkgs.git
     pkgs.R
-    pkgs.rPackages.here
+    pkgs.cudatoolkit
+    pkgs.pkgs.rPackages.here
     pkgs.rPackages.MASS
     pkgs.rPackages.tidyverse
+    pkgs.python312Packages.pandas
+    pkgs.python312Packages.torch
   ];
 
   dotenv.enable = false;
